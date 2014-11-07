@@ -48,7 +48,7 @@ function BNDLS_stylesheet() {
 	} // End woo_shortcode_stylesheet()
 
 
-add_action( 'wp_enqueue_scripts', 'BNDLS_stylesheet', 25 );
+add_action( 'admin_enqueue_scripts', 'BNDLS_stylesheet', 25 );
 
 
 function register_BNDLS_script() {
