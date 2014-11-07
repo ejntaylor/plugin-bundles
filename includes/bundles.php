@@ -1,10 +1,6 @@
 <?php
 
 
-
-
-
-
 	
 function mm_get_plugins($plugins)
 {
@@ -108,33 +104,6 @@ function mm_plugin_activate($installer)
 
 
 
-// Variables
-
-/*
-$pb_plugins_json = '{
-  "bundle_info": {
-    "bundle_name": "Starter Bundle",
-    "bundle_description": "This is a test bundle"
-  },
-  "bundle_plugins": [
-    {
-      "name": "jetpack",
-      "path": "http://downloads.wordpress.org/plugin/jetpack.1.3.zip",
-	  "install": "jetpack/jetpack.php"
-    },
-    {
-      "name": "cookies-for-comments",
-      "path": "http://downloads.wordpress.org/plugin/cookies-for-comments.0.5.5.zip",
-      "install": "cookies-for-comments/cookies-for-comments.php"
-    },
-    {
-      "name": "tumblr-importer",
-      "path": "http://downloads.wordpress.org/plugin/tumblr-importer.0.5.zip",
-      "install": "tumblr-importer/tumblr-importer.php"
-    }
-  ]
-}';
-*/
 
 
 function pb_plugins_json() {
@@ -197,18 +166,12 @@ $bp_action = isset($_GET['action']) ? $_GET['action'] : '';
 function bp_activate() {
 	
 	echo '<h2>Activate</h2>';
-//	$pb_plugins_decode = json_decode($pb_plugins_json, true);
-/*
-	$pb_plugins_decode = json_decode(pb_plugins_json(), true);
-	$pb_plugins = $pb_plugins_decode[bundle_plugins];
-*/
-
-//var_dump( pb_plugins_json());
 
 
-$pbt = pb_plugins_json();
-$pb_plugins = $pbt[bundle_plugins];
-//var_dump($pb_plugins);
+	
+	$pbt = pb_plugins_json();
+	$pb_plugins = $pbt[bundle_plugins];
+	//var_dump($pb_plugins);
 
 	if ($pb_plugins == null) {
 		echo 'Nothing Found Yo';
