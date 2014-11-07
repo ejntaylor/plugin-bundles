@@ -1,195 +1,241 @@
 <?php
 
 
-		$plugin_array1 = Array(
-			0 => array(
-				'name' => 'WooCommerce',
-				'slug' => 'woocommerce',
-				'required' => true,
-			) ,
-			1 => array(
-				'name' => 'Cookies for Comments',
-				'slug' => 'cookies-for-comments',
-				'required' => false,
-			),
-			2 => array(
-				'name' => 'Wordpress SEO',
-				'slug' => 'wordpress-seo',
-				'required' => false,
-			) ,
-			3 => array(
-				'name' => 'Usersnap',
-				'slug' => 'usersnap',
-				'required' => false,
-			) ,
-			4 => array(
-				'name' => 'Video User Manuals',
-				'slug' => 'video-user-manuals',
-				'required' => false,
-			) ,
-			5 => array(
-				'name' => 'Woo Dojo',
-				'slug' => 'woodojo',
-				'required' => true,
-			) ,
-			6 => array(
-				'name' => 'WooThemes Updater',
-				'slug' => 'woothemes-updater',
-				'required' => true,
-			) ,
-			7 => array(
-				'name' => 'Advanced Custom Fields',
-				'slug' => 'advanced-custom-fields',
-				'required' => true,
-			) ,
-			8 => array(
-				'name' => 'BWP Minify',
-				'slug' => 'bwp-minify',
-				'required' => false,
-			) ,
-);
 
 
 
 
+	
+function mm_get_plugins($plugins)
+{
+    $args = array(
+            'path' => ABSPATH.'wp-content/plugins/',
+            'preserve_zip' => false
+    );
+
+    foreach($plugins as $plugin)
+    {
+
+echo '<br />';	    
+$pb_plugin_check = ABSPATH.'wp-content/plugins/'. $plugin['install'];
+    if (file_exists($pb_plugin_check))
+{    	
+	
+echo 'plugin already installed';
+echo '<br />';
+echo $pb_plugin_check;
+echo '<br />';
 
 
-?>
-
-<script type="text/javascript">
-
-// http://jesin.tk/dynamic-textbox-jquery-php/
-
-jQuery(document).ready(function($){
-    $('.my-form .add-box').click(function(){
-        var n = $('.text-box').length + 1;
-        if( 20 < n ) {
-            alert('Limited to 20 Plugins - Come on you don\'t need that many!');
-            return false;
-        }
-        var box_html = $('<p class="text-box">\n\
-			<label for="box' + n + '">Plugin <span class="box-number">' + n + '</span></label>\n\
-			<input type="text" name="bamboo_setting[req_plugins_arr][multiarray][' + n + '][name]" value="" id="box' + n + '" />\n\
-			<label for="box1">Slug </label>\n\
-			<input type="text" name="bamboo_setting[req_plugins_arr][multiarray][' + n + '][slug]" value="" id="box' + n + '" />\n\
-			<label for="box1">Required </label>\n\
-			<input type="hidden" name="bamboo_setting[req_plugins_arr][multiarray][' + n + '][required]" value="0" />\n\
-			<input type="checkbox" name="bamboo_setting[req_plugins_arr][multiarray][' + n + '][required]" value="1" id="box' + n + '" />\n\
-			<a href="#" class="remove-box">Remove</a></p>');
-        box_html.hide();
-        $('.my-form p.text-box:last').after(box_html);
-        box_html.fadeIn('slow');
-        return false;
-    });
-    $('.my-form').on('click', '.remove-box', function(){
-        $(this).parent().css( 'background-color', '#FF6C6C' );
-        $(this).parent().fadeOut("slow", function() {
-            $(this).remove();
-            $('.box-number').each(function(index){
-                $(this).text( index + 1 );
-            });
-        });
-        return false;
-    });
-
-    $('.my-form .domain-add-box').click(function(){
-        var n = $('.domain-text-box').length + 1;
-        if( 20 < n ) {
-            alert('Limited to 20 Plugins - Come on you don\'t need that many!');
-            return false;
-        }
-
-        var box_html = $('<p class="domain-text-box">\n\
-			<label for="box1">Domain Name <span class="domain-box-number">' + n + '</span></label>\n\
-			<input type="text" name="bamboo_setting[allowed_domains_arr][multiarray][]" value="" id="domain-box' + n + '" />\n\
-			<a href="#" class="remove-box">Remove</a></p>');
-        box_html.hide();
-        $('.my-form p.domain-text-box:last').after(box_html);
-        box_html.fadeIn('slow');
-        return false;
-    });
-
-
-});
-</script>
-
-    <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
-
-    	<table class="form-table">
-		<tbody>
-
-			<th colspan="2" ><h3>Plugin Installer</h3></th>
-
-
-			<tr class="my-form">
-				<th scope="row" valign="top">Required Plugins List</th>
-				<td>
-
-<?php
-
-// ******** MULTIPLE ITEMS SECTION *********
-
-
-if (!empty($plugin_array1)) {
-	$i = 0;
-	foreach ($plugin_array1 as $key => $values) :
-		?>
-
-		<p class="text-box">
-			<label for="box<?php echo $key+1; ?>">Plugin <span class="box-number"><?php echo $key+1; ?></span>
-			<input type="text" name="<?php echo $plugin_array1; ?>[<?php echo $i; ?>][name]" value="<?php echo $values['name']; ?>" id="box<?php echo $key+1; ?>" />
-			</label>
-
-			<label for="box1">Slug</label>
-			<input type="text" name="<?php echo $plugin_array1; ?>[<?php echo $i; ?>][slug]" value="<?php echo $values['slug']; ?>" id="box<?php echo $key+1; ?>" />
-			<label for="box1">Required</label>
-			<input type="hidden" name="<?php echo $plugin_array1; ?>[<?php echo $i; ?>][required]" value="0" />
-			<input type="checkbox" name="<?php echo $plugin_array1; ?>[<?php echo $i; ?>][required]" value="1" <?php if ( isset($values['required']) && '1' == $values['required'] ) echo 'checked="checked"'; ?> id="box<?php echo $key+1; ?>" />
-			<?php echo ( 0 == $key ? '' : '<a href="#" class="remove-box">Remove</a>' ); ?>
-		</p>
-		<?php
-		 $i++;
-	endforeach;
-	echo '<p><a href="#" class="add-box">Add More</a></p>';
 } else {
 
-	global $bundlesPlugin;
+           mm_plugin_download($plugin['path'], $args['path'].$plugin['name'].'.zip');
+           mm_plugin_unpack($args, $args['path'].$plugin['name'].'.zip');
+           	
+}
 
-    ?>
-        <p class="text-box">
-            <label for="box1">Name <span class="box-number">1</span></label>
-            <input type="text" name="<?php echo $plugin_array1; ?>[0][name]" value="" id="box1" />
-            <label for="box1">Slug</label>
-            <input type="text" name="<?php echo $plugin_array1; ?>[0][slug]" value="" id="box1" />
-            <label for="box1">Required</label>
-	    <input type="hidden" name="<?php echo $plugin_array1; ?>[0][required]" value="0" />
-            <input type="checkbox" name="<?php echo $plugin_array1; ?>[0][required]" value="1" id="box1" />
-        </p>
-	<p><a href="#" class="add-box">Add More</a></p>
-<?php
+
+            mm_plugin_activate($plugin['install']);
+    }
+}
+function mm_plugin_download($url, $path) 
+{
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $data = curl_exec($ch);
+    curl_close($ch);
+
+    if(file_put_contents($path, $data))
+            return true;
+    else
+            return false;
+}
+function mm_plugin_unpack($args, $target)
+{
+    if($zip = zip_open($target))
+    {
+            while($entry = zip_read($zip))
+            {
+                    $is_file = substr(zip_entry_name($entry), -1) == '/' ? false : true;
+                    $file_path = $args['path'].zip_entry_name($entry);
+                    if($is_file)
+                    {
+                            if(zip_entry_open($zip,$entry,"r")) 
+                            {
+                                    $fstream = zip_entry_read($entry, zip_entry_filesize($entry));
+                                    file_put_contents($file_path, $fstream );
+                                    chmod($file_path, 0777);
+                                    //echo "save: ".$file_path."<br />";
+                            }
+                            zip_entry_close($entry);
+                    }
+                    else
+                    {
+                            if(zip_entry_name($entry))
+                            {
+                                    mkdir($file_path);
+                                    chmod($file_path, 0777);
+                                    //echo "create: ".$file_path."<br />";
+                            }
+                    }
+            }
+            zip_close($zip);
+    }
+    if($args['preserve_zip'] === false)
+    {
+            unlink($target);
+    }
+}
+function mm_plugin_activate($installer)
+{
+    $current = get_option('active_plugins');
+    $plugin = plugin_basename(trim($installer));
+
+    if(!in_array($plugin, $current))
+    {
+            $current[] = $plugin;
+            sort($current);
+            do_action('activate_plugin', trim($plugin));
+            update_option('active_plugins', $current);
+            do_action('activate_'.trim($plugin));
+            do_action('activated_plugin', trim($plugin));
+            return true;
+    }
+    else
+            return false;
+}
+
+
+
+
+// Variables
+
+/*
+$pb_plugins_json = '{
+  "bundle_info": {
+    "bundle_name": "Starter Bundle",
+    "bundle_description": "This is a test bundle"
+  },
+  "bundle_plugins": [
+    {
+      "name": "jetpack",
+      "path": "http://downloads.wordpress.org/plugin/jetpack.1.3.zip",
+	  "install": "jetpack/jetpack.php"
+    },
+    {
+      "name": "cookies-for-comments",
+      "path": "http://downloads.wordpress.org/plugin/cookies-for-comments.0.5.5.zip",
+      "install": "cookies-for-comments/cookies-for-comments.php"
+    },
+    {
+      "name": "tumblr-importer",
+      "path": "http://downloads.wordpress.org/plugin/tumblr-importer.0.5.zip",
+      "install": "tumblr-importer/tumblr-importer.php"
+    }
+  ]
+}';
+*/
+
+
+function pb_plugins_json() {
+	$pb_root = 'http://raison.co/bundles_json/';
+	$pb_file = $_GET['bp_bundle_file'];	
+	$pb_path = $pb_root.$pb_file.'.json';
+		
+
+	// http://alvinalexander.com/php/php-curl-examples-curl_setopt-json-rest-web-service
+	
+	$data = array("id" => "$id", "symbol" => "$symbol", "companyName" => "$companyName");
+	$data_string = json_encode($data);
+	
+	$ch = curl_init($pb_path);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+	    'Content-Type: application/json',
+	    'Content-Length: ' . strlen($data_string))
+	);
+	curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+	
+	//execute post
+	$pb_result = curl_exec($ch);
+	
+	//close connection
+	curl_close($ch);
+	
+	$pb_result_decode = json_decode($pb_result, true);
+	//var_dump($pb_result_decode);
+	return $pb_result_decode;
+
+}
+
+
+
+
+echo $data;
+
+
+
+// Page Logic
+
+$bp_action = isset($_GET['action']) ? $_GET['action'] : '';
+
+
+    if($bp_action == 'deactivate'){
+        bp_deactivate();
+    }
+    
+    elseif($bp_action == 'activate'){
+		bp_activate();
     }
 
 
 
+
+function bp_activate() {
+	
+	echo '<h2>Activate</h2>';
+//	$pb_plugins_decode = json_decode($pb_plugins_json, true);
+/*
+	$pb_plugins_decode = json_decode(pb_plugins_json(), true);
+	$pb_plugins = $pb_plugins_decode[bundle_plugins];
+*/
+
+//var_dump( pb_plugins_json());
+
+
+$pbt = pb_plugins_json();
+$pb_plugins = $pbt[bundle_plugins];
+//var_dump($pb_plugins);
+
+	if ($pb_plugins == null) {
+		echo 'Nothing Found Yo';
+		return;
+	}
+	
+	else {
+	
+		mm_get_plugins($pbt[bundle_plugins]);
+	}
+}
+
+
+function bp_deactivate() {
+	echo '<h2>Deactivate</h2>';
+}		
+		
 ?>
-			</td>
-		</tr>
-		
-		
-<?php bb_settings_end(); ?>		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	</tbody>
-</table>
-<input class="button-primary" type="submit" value="Save Settings" />
+
+
+
+
+
+<form>
+	<input class="" type="text" name="bp_bundle_file" value="default" checked="checked">Text
+	<input type="hidden" name="action" value="activate"><br>
+	<input type="hidden" name="page" value="bundles">
+	<input type="submit" value="Install" />
+
 </form>
-<p><a href="<?php echo admin_url( '/admin.php?page=bamboo-settings&reset' ); ?>">RESET</a></p>

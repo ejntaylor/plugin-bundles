@@ -7,7 +7,7 @@
  * Description: Bundles of Plugins
  * Author: raisonon
  * Author URI: http://www.raison.co/
- * Version: 1.0.1
+ * Version: 0.1
  * License: GPLv2 or later
  * Text Domain: woocommerce-taxtog
  */
@@ -43,7 +43,7 @@ add_option('BNDLS_VERSION_KEY', 'BNDLS_VERSION_NUM');
  
 
 function BNDLS_stylesheet() {
-		wp_register_style( 'BNDLS-css', BNDLS_URL . '/assets/css/BNDLS.css', array(), BNDLS_VERSION_NUM, 'all' );
+		wp_register_style( 'BNDLS-css', BNDLS_URL . '/assets/css/bndls.css', array(), BNDLS_VERSION_NUM, 'all' );
 		wp_enqueue_style( 'BNDLS-css' );
 	} // End woo_shortcode_stylesheet()
 
@@ -52,7 +52,7 @@ add_action( 'admin_enqueue_scripts', 'BNDLS_stylesheet', 25 );
 
 
 function register_BNDLS_script() {
-	wp_register_script('BNDLS-js', BNDLS_URL . '/assets/js/BNDLS.js', array('jquery'), BNDLS_VERSION_NUM, true);
+	wp_register_script('BNDLS-js', BNDLS_URL . '/assets/js/bndls.js', array('jquery'), BNDLS_VERSION_NUM, true);
 }
 
 

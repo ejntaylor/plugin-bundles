@@ -1,0 +1,23 @@
+{
+  "bundle_info": {
+    "bundle_name": "Starter Bundle",
+    "bundle_description": "This is a test bundle"
+  },
+  "bundle_plugins": [
+    {
+      "name": "jetpack",
+      "path": "http://downloads.wordpress.org/plugin/jetpack.1.3.zip",
+	  "install": "jetpack/jetpack.php"
+    },
+    {
+      "name": "cookies-for-comments",
+      "path": "http://downloads.wordpress.org/plugin/cookies-for-comments.0.5.5.zip",
+      "install": "cookies-for-comments/cookies-for-comments.php"
+    },
+    {
+      "name": "tumblr-importer",
+      "path": "http://downloads.wordpress.org/plugin/tumblr-importer.0.5.zip",
+      "install": "tumblr-importer/tumblr-importer.php"
+    }
+  ]
+}
