@@ -14,8 +14,8 @@ overflow: hidden;
 
 
 .bundle-item-l {
-	width:70%;
-	
+width: 68%;
+padding-right: 2%;	
 }
 
 .bundle-item-r {
@@ -25,6 +25,7 @@ overflow: hidden;
 
 #bundle-section ul#bundle-list li.bundle-item h3 {
 	float: left;
+	margin: 0;
 }
 
 bundle-title-top {
@@ -43,7 +44,11 @@ bundle-title-top {
 }
 
 #bundle-section ul#bundle-list li.bundle-item .bundle-description {
+	padding-top: 1em;
 	clear:both;	
 }
 
 
+#bundle-section ul#bundle-list li.bundle-item .activate {
+	margin-top: 1em;
+}
