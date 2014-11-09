@@ -110,7 +110,7 @@ function pb_plugins_json() {
 	$pb_root = 'http://raison.co/bundles_json/';
 	$pb_file = $_GET['bp_bundle_file'];	
 	$pb_path = $pb_root.$pb_file.'.json';
-		
+	//echo $pb_path;	
 
 	// http://alvinalexander.com/php/php-curl-examples-curl_setopt-json-rest-web-service
 	
@@ -143,7 +143,7 @@ function pb_plugins_json() {
 
 
 
-echo $data;
+
 
 
 
@@ -168,9 +168,8 @@ function bp_activate() {
 	echo '<h2>Activate</h2>';
 
 
-	
-	$pbt = pb_plugins_json();
-	$pb_plugins = $pbt[bundle_plugins];
+	$pbjson = pb_plugins_json();
+	$pb_plugins = $pbjson[bundle_plugins];
 	//var_dump($pb_plugins);
 
 	if ($pb_plugins == null) {
@@ -179,8 +178,19 @@ function bp_activate() {
 	}
 	
 	else {
-	
-		mm_get_plugins($pbt[bundle_plugins]);
+		
+	//	var_dump($pb_plugins);
+		
+		foreach ($pb_plugins as $pb_plugin_item_number => $pb_plugin_item_details ) {
+		
+		echo $pb_plugin_item_number;	
+		echo '<br>'; 	
+		var_dump($pb_plugin_item_details);
+		echo '<br>'; 	
+			
+		//$pb_bundle_go = $pbjson[bundle_plugins]
+		//mm_get_plugins($pb_bundle_go);
+		}
 	}
 }
 
@@ -196,7 +206,7 @@ function bp_deactivate() {
 
 
 <form>
-	<input class="" type="text" name="bp_bundle_file" value="default" checked="checked">Text
+	<input class="" type="text" name="bp_bundle_file" value="bundles" checked="checked">Text
 	<input type="hidden" name="action" value="activate"><br>
 	<input type="hidden" name="page" value="bundles">
 	<input type="submit" value="Install" />

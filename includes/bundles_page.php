@@ -7,7 +7,7 @@
 					<div class="plugin-info">14 Plugins by <span>Raison Online</span></div>
 				</div>
 				<div class="bundle-description">Fictum,  deserunt mollit anim laborum astutumque! Unam incolunt Belgae, aliam Aquitani, tertiam.</div>
-				<div>Download and install</div>
+				<div class="activate">Download and install</div>
 				
 			</div>
 			<div class="bundle-item-r">
