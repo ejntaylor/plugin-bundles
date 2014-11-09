@@ -16,9 +16,9 @@ add_action('admin_menu', 'bndls_options_panel');
 
 function bndls_bundles(){
                 echo '<div class="wrap"><div id="icon-options-general" class="icon32"><br></div>
-                <h2>Plugin Bundles</h2></div>';
+                <h2>Plugin Bundles</h2>';
 				require_once('bundles.php');
-
+				echo '</div>';
 }
 
 

@@ -1,0 +1,49 @@
+#bundle-section ul#bundle-list li.bundle-item {
+border-left: 4px solid #7ad03a;
+padding: 1px 12px;
+background-color: #fff;
+-webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);	
+overflow: hidden;
+}
+
+.bundle-item-l, .bundle-item-r {
+	float:left;
+	margin: 1em 0;
+}
+
+
+.bundle-item-l {
+	width:70%;
+	
+}
+
+.bundle-item-r {
+	width:30%;
+}
+
+
+#bundle-section ul#bundle-list li.bundle-item h3 {
+	float: left;
+}
+
+bundle-title-top {
+		margin: 0 0 1em 0;
+		position: relative;
+}
+
+#bundle-section ul#bundle-list li.bundle-item .plugin-info {
+	float:right;
+	
+}
+
+#bundle-section ul#bundle-list li.bundle-item .plugin-info span {
+	font-weight: 600;
+	
+}
+
+#bundle-section ul#bundle-list li.bundle-item .bundle-description {
+	clear:both;	
+}
+
+

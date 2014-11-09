@@ -202,3 +202,9 @@ function bp_deactivate() {
 	<input type="submit" value="Install" />
 
 </form>
+
+
+
+
+
+<?php include_once('bundles_page.php'); ?>
