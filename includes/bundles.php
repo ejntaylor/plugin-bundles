@@ -1,11 +1,14 @@
 <?php
+	
+	
+// ref: http://stackoverflow.com/questions/10353859/is-it-possible-to-programmatically-install-plugins-from-wordpress-theme	
 
 
 	
 function mm_get_plugins($plugins) {
 	
     $args = array(
-            'path' => ABSPATH.'wp-content/plugins/',
+            'plugin_path' => ABSPATH.'wp-content/plugins/',
             'preserve_zip' => false
     );
 
@@ -15,21 +18,20 @@ echo '<div class="updated">';
     {
 	    
 
-echo '<br />';	    
-$pb_plugin_check = ABSPATH.'wp-content/plugins/'. $plugin['plugin_install'];
-    if (file_exists($pb_plugin_check))
-{    	
+	echo '<br />';	    
+	$pb_plugin_check = ABSPATH.'wp-content/plugins/'. $plugin['plugin_install'];
+	   
+	    if (file_exists($pb_plugin_check)) {    	
+		
+			echo $plugin['plugin_install'] . ' already installed';
 	
-echo $plugin['plugin_install'] . ' already installed';
-
-
-} else {
+		} else {
 			echo $plugin['plugin_install'] . ' installed';
-
-           mm_plugin_download($plugin['plugin_path'], $args['plugin_path'].$plugin['plugin_name'].'.zip');
-           mm_plugin_unpack($args, $args['plugin_path'].$plugin['plugin_name'].'.zip');
-           	
-}
+	
+	        mm_plugin_download($plugin['plugin_path'], $args['plugin_path'].$plugin['plugin_name'].'.zip');
+	        mm_plugin_unpack($args, $args['plugin_path'].$plugin['plugin_name'].'.zip');
+	           	
+		}
 
 
             mm_plugin_activate($plugin['plugin_install']);
@@ -51,6 +53,8 @@ function mm_plugin_download($url, $path)
 }
 function mm_plugin_unpack($args, $target)
 {
+
+// var_dump($target);
     if($zip = zip_open($target))
     {
             while($entry = zip_read($zip))
@@ -72,7 +76,7 @@ function mm_plugin_unpack($args, $target)
                     {
                             if(zip_entry_name($entry))
                             {
-                                    mkdir($file_path);
+                                    wp_mkdir_p($file_path);
                                     chmod($file_path, 0777);
                                     //echo "create: ".$file_path."<br />";
                             }
