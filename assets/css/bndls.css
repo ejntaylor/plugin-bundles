@@ -52,3 +52,25 @@ bundle-title-top {
 #bundle-section ul#bundle-list li.bundle-item .activate {
 	margin-top: 1em;
 }
+
+
+/* Bundle Icons */
+
+.bundle-icon {
+	
+width: 50px;
+height: 50px;
+display: inline-block;
+overflow: hidden;
+margin: 35px 0 0;
+-webkit-border-radius: 50% 50%;
+border-radius: 50% 50%;
+background-image: url(../img/wp-pic-sprite.png);
+background-repeat: no-repeat;
+background-position: 0 0;
+background-size: 100%;
+-webkit-box-shadow: 0 0 20px 1px rgba(0,0,0,0.04);
+box-shadow: 0 0 20px 1px rgba(0,0,0,0.04);
+
+
+}
