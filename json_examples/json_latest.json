@@ -1,0 +1,48 @@
+{
+        "bundle_plugin_1": {
+            "bundle_info": {
+                "bundle_name": "Starter Bundle",
+                "bundle_author": "Test",
+                "bundle_author_link": "http://raison.co",                
+                "bundle_description": "This is a test bundle"
+            },
+            
+        "bundle_plugins": {
+            
+	            "plugin_1": {
+	                "plugin_slug": "jetpack"
+	            },
+	            "plugin_2": {
+	                "plugin_slug": "debug-bar-actions-and-filters-addon"
+	            },
+	            "plugin_3": {
+	                "plugin_slug": "tumblr-importer"
+	            }
+            
+            }
+            
+            
+        },
+        "bundle_plugin_2": {
+            "bundle_info": {
+                "bundle_name": "Debug Bundle",
+                "bundle_author": "Raison",
+                "bundle_author_link": "http://raison.co",
+                "bundle_description": "This is the debug bundle"
+            },
+            
+			"bundle_plugins": {
+
+            "plugin_1": {
+                "plugin_slug": "debug-bar"
+            },
+            "plugin_2": {
+                "plugin_slug": "debug-bar-constants"
+            },
+            "plugin_3": {
+                "plugin_slug": "debug-bar-post-types"
+            }
+            
+            }
+        }
+    }
