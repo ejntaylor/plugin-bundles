@@ -202,17 +202,17 @@ $bp_action = isset($_GET['action']) ? $_GET['action'] : '';
 
 
 function bp_activate() {
+
+	echo '<h3>Activating and Installing: ' .  $_GET['bundle_name'] . '</h3>';
+
+
 	
-	echo '<h2>Activate</h2>';
-
-
 	$pbjson = pb_plugins_json();
 	$pb_bundle_number = isset($_GET['bundle_number']) ? $_GET['bundle_number'] : '';
 	if ($pb_bundle_number == '') {
 		echo 'no bundle found';
 		return;
 		}
-	echo 'Activating and Installing' . $pb_bundle_number;
 	$pb_plugins = $pbjson[$pb_bundle_number][bundle_plugins];
 
 // 	var_dump($pb_plugins);
@@ -234,11 +234,10 @@ function bp_deactivate() {
 
 function bp_loop_logic() {
 	
-	$pbjson = pb_plugins_json();
-	$pb_plugins = $pbjson;
+	$pb_json = pb_plugins_json();
 	//var_dump($pb_plugins);
 
-	if ($pb_plugins == null) {
+	if ($pb_json == null) {
 		echo 'Nothing Found Yo';
 		return;
 	}
@@ -246,7 +245,7 @@ function bp_loop_logic() {
 	else {
 		
 		
-		foreach ($pb_plugins as $pb_plugin_item_number => $pb_plugin_item_details ) {
+		foreach ($pb_json as $pb_plugin_item_number => $pb_plugin_item_details ) {
 
 			bp_loop_item($pb_plugin_item_details, $pb_plugin_item_number);
 						
@@ -336,6 +335,7 @@ foreach ($pb_data[bundle_plugins] as $pb_plugin) {
 								
 				<div class="activate">
 					<form>
+						<input type="hidden" name="bundle_name" value="<?php echo $pb_data[bundle_info][bundle_name]; ?>">
 						<input type="hidden" name="bundle_number" value="<?php echo $pb_number; ?>">
 						<input type="hidden" name="action" value="activate">
 						<input type="hidden" name="page" value="bundles">
