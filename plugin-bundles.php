@@ -9,7 +9,7 @@
  * Author URI: http://www.raison.co/
  * Version: 0.1
  * License: GPLv2 or later
- * Text Domain: woocommerce-taxtog
+ * Text Domain: pbundle
  */
  
  
