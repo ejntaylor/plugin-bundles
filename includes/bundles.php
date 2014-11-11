@@ -41,7 +41,10 @@ function bp_api_query($slug) {
  
     }
     
-    return $call_api;
+
+    
+    	return $call_api;
+
     
  }
 	
@@ -336,17 +339,20 @@ function bp_wpapi($action, $args = null) {
 		
 		
 		
-// Loop Output
 
+/**
+ * PB Loop Output function.
+ *
+ * Loops through the bundles and the plugins on the backend
+ * 
+ * @access public
+ * @param mixed $pb_data
+ * @param mixed $pb_number
+ * @return void
+ */
+ 
 function bp_loop_item($pb_data, $pb_number) { 
 	
-
-/*
-foreach ($pb_data[bundle_plugins] as $pb_plugin) {
-	var_dump(bp_wpapi($pb_plugin[plugin_slug]));
-}
-*/
-
 	
 ?>
 
@@ -374,11 +380,14 @@ foreach ($pb_data[bundle_plugins] as $pb_plugin) {
 				
 			</div>
 			<div class="bundle-item-r">
-				<?php $pb_plugin_items = $pb_data[bundle_plugins]; 
-
+	
+	
+			<?php 
 					
+			$pb_plugin_items = $pb_data[bundle_plugins]; 		
 			foreach ($pb_plugin_items as $pb_plugin_item) {
 						
+							
 			// logo args
 			
 				
@@ -400,15 +409,18 @@ foreach ($pb_data[bundle_plugins] as $pb_plugin) {
 				} else if($logo == 'no'){
 					$bgImage = 'style="background-image:  url(' . plugins_url('/assets/img/wp-pic-sprite.png', dirname(__FILE__) ) . ');"';
 				} else {
-					$bgImage = 'style="background-image:  none, url(http://ps.w.org/' . $pb_plugin_item[plugin_slug] . '/assets/icon.svg), url(' . plugins_url('/img/wp-pic-sprite.png', __FILE__ ) . ');"';
+					$bgImage = 'style="background-image:  none, url(http://ps.w.org/' . $pb_plugin_item[plugin_slug] . '/assets/icon.svg), url(' . plugins_url('/assets/img/wp-pic-sprite.png', dirname(__FILE__) ) . ');"';
 				}
 			}
+
 			
-			//var_dump($pb_plugin_item[plugin_slug]);
-			echo '<div '. $bgImage . 'class="bundle-icon"></div>';
-			
-			
-			
+
+//var_dump($pb_plugin_item );			
+$bp_api_name = bp_api_query($pb_plugin_item[plugin_slug]);	
+
+			echo '<div class="bundle-plugin-item"><a href="'.$bp_api_name->homepage .'" target="blank"><div '. $bgImage . ' class="bundle-icon"></div><div class="bundle-item-right"><div class="bundle-name">' . $bp_api_name->name .'</div><div class="bundle-rating">Rating: ' . $bp_api_name->rating  . '</div></div></a></div>';
+				
+						
 			
 					} // close foreach plugin
 					
