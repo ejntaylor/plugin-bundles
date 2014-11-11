@@ -1,0 +1,426 @@
+stdClass Object
+(
+    [name] => Debug Bar
+    [slug] => debug-bar
+    [version] => 0.8.2
+    [author] => wordpressdotorg
+    [author_profile] => //profiles.wordpress.org/westi
+    [contributors] => Array
+        (
+            [wordpressdotorg] => //profiles.wordpress.org/wordpressdotorg
+            [ryan] => //profiles.wordpress.org/ryan
+            [westi] => //profiles.wordpress.org/westi
+            [koopersmith] => //profiles.wordpress.org/koopersmith
+            [duck_] => //profiles.wordpress.org/duck_
+            [mitchoyoshitaka] => //profiles.wordpress.org/mitchoyoshitaka
+        )
+
+    [requires] => 3.1
+    [tested] => 4.1-alpha
+    [compatibility] => Array
+        (
+            [4.0] => Array
+                (
+                    [0.8.2] => Array
+                        (
+                            [0] => 33
+                            [1] => 3
+                            [2] => 1
+                        )
+
+                )
+
+        )
+
+    [rating] => 95
+    [num_ratings] => 110
+    [ratings] => Array
+        (
+            [5] => 98
+            [4] => 7
+            [3] => 0
+            [2] => 0
+            [1] => 5
+        )
+
+    [downloaded] => 147629
+    [last_updated] => 2014-09-02 4:19am GMT
+    [added] => 2010-11-04
+    [homepage] => http://wordpress.org/extend/plugins/debug-bar/
+    [sections] => Array
+        (
+            [description] => 
+Adds a debug menu to the admin bar that shows query, cache, and other helpful debugging information.
+
+
+A must for developers!
+
+
+When WP_DEBUG is enabled it also tracks PHP Warnings and Notices to make them easier to find.
+
+
+When SAVEQUERIES is enabled the mysql queries are tracked and displayed.
+
+
+Add a PHP/MySQL console with the Debug Bar Console plugin.
+
+            [installation] => 
+Use automatic installer.
+
+            [changelog] => 
+0.8.1
+
+
+
+Minor security fix.
+
+
+0.8
+
+
+
+WordPress 3.3 compatibility
+UI refresh
+Removed jQuery UI requirement
+Full screen by default
+New debug-bar query parameter to show on page load
+Removed display cookies
+JavaScript error tracking (disabled by default)
+
+
+0.7
+
+
+
+Made compatible with PHP < 5.2.0
+CSS Tweaks
+Load JavaScript in Footer
+Fixed display issues for WP_Query debug on CPT archives pages
+SQL/DB error tracking
+
+
+0.6
+
+
+
+Added maximize/restore button
+Added cookie to keep track of debug bar state
+Added post type information to WP_Query tab
+Bug fix where bottom of page was obscured in the admin
+
+
+0.5
+
+
+
+New UI
+Backend rewritten with a class for each panel
+Many miscellaneous improvements
+
+
+0.4.1
+
+
+
+Compatibility updates for trunk
+
+
+0.4
+
+
+
+Added DB Version information
+Updated PHP Warning and Notice tracking so that multiple different errors on the same line are tracked
+Compatibility updates for trunk
+
+
+0.3
+
+
+
+Added WordPress Query infomation
+Added Request parsing information
+
+
+0.2
+
+
+
+Added PHP Notice / Warning tracking when WP_DEBUG enabled
+Added deprecated function usage tracking
+
+
+0.1
+
+
+
+Initial Release
+
+        )
+
+    [download_link] => https://downloads.wordpress.org/plugin/debug-bar.0.8.2.zip
+    [tags] => Array
+        (
+            [debug] => debug
+        )
+
+    [donate_link] => 
+)
+
+Already Installed:
+stdClass Object
+(
+    [name] => Debug Bar Constants
+    [slug] => debug-bar-constants
+    [version] => 1.3.1
+    [author] => Juliette Reinders Folmer
+    [author_profile] => //profiles.wordpress.org/jrf
+    [contributors] => Array
+        (
+            [jrf] => //profiles.wordpress.org/jrf
+        )
+
+    [requires] => 3.1
+    [tested] => 4.0
+    [compatibility] => Array
+        (
+            [4.0] => Array
+                (
+                    [1.3.1] => Array
+                        (
+                            [0] => 100
+                            [1] => 1
+                            [2] => 1
+                        )
+
+                )
+
+        )
+
+    [rating] => 100
+    [num_ratings] => 1
+    [ratings] => Array
+        (
+            [5] => 1
+            [4] => 0
+            [3] => 0
+            [2] => 0
+            [1] => 0
+        )
+
+    [downloaded] => 2146
+    [last_updated] => 2014-09-05 6:14am GMT
+    [added] => 2013-04-28
+    [homepage] => http://wordpress.org/extend/plugins/debug-bar-constants/
+    [sections] => Array
+        (
+            [description] => 
+Debug Bar Constants adds three new panels to the Debug Bar that display the defined constants available to you as a developer for the current request:
+
+
+
+WP Constants
+
+WP Class Constants
+
+PHP Constants
+
+
+
+Important
+
+
+
+This plugin requires the Debug Bar plugin to be installed and activated.
+
+
+Also note that this plugin should be used solely for debugging and/or in a development environment and is not intended for use on a production site.
+
+
+
+
+If you like this plugin, please rate and/or review it. If you have ideas on how to make the plugin even better or if you have found any bugs, please report these in the Support Forum or in the GitHub repository.
+
+            [installation] => 
+
+Install Debug Bar if not already installed (http://wordpress.org/extend/plugins/debug-bar/)
+
+Extract the .zip file for this plugin and upload its contents to the /wp-content/plugins/ directory. Alternatively, you can install directly from the Plugin directory within your WordPress Install.
+
+Activate the plugin through the "Plugins" menu in WordPress.
+
+
+
+Don't use this plugin on a live site. This plugin is only intended to be used for development purposes.
+
+            [screenshots] => 
+
+	
+
+					debug-bar-constants screenshot 1
+				
+Debug Bar displaying WP Constants
+
+	
+
+	
+
+					debug-bar-constants screenshot 2
+				
+Debug Bar displaying WP Class Constants
+
+	
+
+	
+
+					debug-bar-constants screenshot 3
+				
+Debug Bar displaying PHP Constants
+
+	
+
+
+            [changelog] => 
+1.3.1 (2014-09-05)
+
+
+
+
+Fix compatibility with the Plugin Dependencies plugin
+
+Tested & found compatible WP 4.0
+
+
+
+1.3 (2013-12-02)
+
+
+
+
+Moved pretty print class to separate repository as several plugins are using it now.
+
+
+
+1.2.1.2 (2013-11-30)
+
+
+
+
+Fixed minor HTML validation issue
+
+Fixed auto-disable message display in case the Debug Bar Plugin is not activated
+
+Changed style and script file names to comply with current guidelines (.min)
+
+Tested with WP 3.8-beta1
+
+
+
+1.2.1.1 (2013-10-01)
+
+
+
+
+Compliance with the WordPress coding standards
+
+Some minor code cleanup inspired by some suggestions by Maik Penz
+
+
+
+1.2.1 (2013-05-27)
+
+
+
+
+Minor fix to comply with strict standards. Thanks Azizur Rahman for reporting
+
+
+
+1.2 (2013-05-05)
+
+
+
+
+[New!] Added a panel for Class Constants
+
+[Fix] Some left over references to functions not in this plugin
+
+Headers for the PHP Constants now link to their PHP manual page
+
+Moved more output rendering to the pretty-output class and applied a higher level of abstraction
+
+
+
+1.1 (2013-04-30) / not released
+
+
+
+
+[New!] Added auto-deactivation if the Debug Bar plugin is not active
+
+[Fix] Removed js debug alert (oops..)
+
+[Fix] Adjusted the sorting to be case-insensitive
+
+[Fix] Some small-HTML/CSS tweaks
+
+Added object output helper method
+
+
+
+1.0 (2013-04-28)
+
+
+
+
+Initial release
+
+
+            [faq] => 
+Can it be used on live site ?
+
+
+
+PLEASE DON'T! Amongst the defined constants are your database credentials, so you really do not want to do this.
+This plugin is only meant to be used for development purposes.
+
+
+What are constants ?
+
+
+
+From PHP.net:
+
+
+
+  
+A constant is an identifier (name) for a simple value. As the name suggests, that value cannot change during the execution of the script. A constant is case-sensitive by default. By convention, constant identifiers are always uppercase.
+
+  
+  
+Like super globals, the scope of a constant is global. You can access constants anywhere in your script without regard to scope. For more information on scope, read the manual section on variable scope.
+
+
+
+I don't see my constants in the WP Constants list. What gives ?
+
+
+
+Congratulations! Sounds like you're practicing lean programming (or something is going wrong... ;-) ).
+
+
+The constants you see are the ones available in the current request. If you define constants in a conditionally included file - for instance you only include the file when on a certain page -, these constants will not be available if the conditions have not been met.
+
+
+The number of constants is different on each page/most pages. How come ?
+
+
+
+See the previous question.
+
+
+What are class constants ?
+
+
+
+From PHP.net:
