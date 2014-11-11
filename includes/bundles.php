@@ -52,7 +52,7 @@ function mm_get_plugins($plugins) {
 	
     $args = array(
             'plugin_path' => ABSPATH.'wp-content/plugins/',
-            'preserve_zip' => true
+            'preserve_zip' => false
     );
 
 echo '<div class="updated">';
@@ -374,24 +374,18 @@ foreach ($pb_data[bundle_plugins] as $pb_plugin) {
 				
 			</div>
 			<div class="bundle-item-r">
-				ICONS
 				<?php $pb_plugin_items = $pb_data[bundle_plugins]; 
-					
-					
-//	$pb_plugins = $pbjson[$pb_bundle_number][bundle_plugins];
 
-	// 	var_dump($pb_plugins);
-	
-//			mm_get_plugins($pb_plugins);
 					
-			//var_dump(mm_get_plugins($pb_plugin_items));
-		
-					
-					foreach ($pb_plugin_items as $pb_plugin_item) {
+			foreach ($pb_plugin_items as $pb_plugin_item) {
 						
 			// logo args
 			
-			$logo = '128x128.png';			
+				
+			$logo = '128x128.png';
+			$url = 'http://ps.w.org/' . $pb_plugin_item[plugin_slug] . '/assets/icon-' . $logo;
+			$exists = (@$fp = fopen($url, "r")) !== FALSE; if ($fp) fclose($fp); 
+			if ($exists==false) { $logo = 'no';  } 
 			$image = '';		
 						
 			// provided logo url			
@@ -404,7 +398,7 @@ foreach ($pb_data[bundle_plugins] as $pb_plugin) {
 				} else if($logo == 'svg'){
 					$bgImage = 'style="background-image:  url(http://ps.w.org/' . $pb_plugin_item[plugin_slug] . '/assets/icon.svg)"';
 				} else if($logo == 'no'){
-					$bgImage = 'style="background-image:  url(' . plugins_url('/img/wp-pic-sprite.png', __FILE__ ) . ');"';
+					$bgImage = 'style="background-image:  url(' . plugins_url('/assets/img/wp-pic-sprite.png', dirname(__FILE__) ) . ');"';
 				} else {
 					$bgImage = 'style="background-image:  none, url(http://ps.w.org/' . $pb_plugin_item[plugin_slug] . '/assets/icon.svg), url(' . plugins_url('/img/wp-pic-sprite.png', __FILE__ ) . ');"';
 				}
@@ -416,7 +410,7 @@ foreach ($pb_data[bundle_plugins] as $pb_plugin) {
 			
 			
 			
-					}
+					} // close foreach plugin
 					
 					
 					
