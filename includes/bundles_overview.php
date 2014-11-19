@@ -172,7 +172,12 @@ function mm_plugin_activate($installer)
 
 
 function pb_plugins_json() {
+	    $timeStart = microtime(true);
+
+	
 	$pb_root = 'http://raison.co/bundles_json/';
+	    $timeAfterGet = microtime(true);
+
 	$pb_file = isset($_GET['bp_bundle_file']) ? $_GET['bp_bundle_file'] : 'bundles';
 	$pb_path = $pb_root.$pb_file.'.json';
 	//echo $pb_path;	
@@ -203,7 +208,13 @@ function pb_plugins_json() {
 	//var_dump($pb_result_decode);
 	
 	
- 
+     $timeEnd = microtime(true);
+   
+/*
+	 echo "Time taken to get JSON: " . number_format($timeAfterGet - $timeStart, 4) . " seconds<br />";
+	 echo "Time taken to go through JSON: " . number_format($timeEnd - $timeAfterGet, 4) . " seconds<br />";
+*/
+
 	
 	return $pb_result_decode;
 
@@ -265,6 +276,7 @@ function bp_deactivate() {
 
 function bp_loop_logic() {
 	
+	
 	$pb_json = pb_plugins_json();
 	//var_dump($pb_plugins);
 
@@ -279,7 +291,7 @@ function bp_loop_logic() {
 		foreach ($pb_json as $pb_plugin_item_number => $pb_plugin_item_details ) {
 
 			bp_loop_item($pb_plugin_item_details, $pb_plugin_item_number);
-						
+			
 			//$pb_bundle_go = $pbjson[bundle_plugins]
 			//mm_get_plugins($pb_bundle_go);
 		}
@@ -289,11 +301,20 @@ function bp_loop_logic() {
 }		
 		
 		
-		
-// WP API 
 
 
-
+/**
+ * bp_wpapi function.
+ * 
+ * Access information about plugin from the API
+ *
+ * @access public
+ * @param mixed $action
+ * @param mixed $args (default: null)
+ * @return string
+ */
+ 
+ 
 function bp_wpapi($action, $args = null) {
  
     if ( is_array($args) )
@@ -337,6 +358,43 @@ function bp_wpapi($action, $args = null) {
 
 
 		
+
+/**
+ * bndls_get_images function.
+ * 
+ * Gets the logo images from the WordPress server 
+ *
+ * @access public
+ * @param mixed $pb_plugin_item
+ * @return string
+ */
+function bndls_get_images($pb_plugin_item) {					
+	
+	$logo = '128x128.png';
+	$url = 'http://ps.w.org/' . $pb_plugin_item[plugin_slug] . '/assets/icon-' . $logo;
+	$exists = (@$fp = fopen($url, "r")) !== FALSE; if ($fp) fclose($fp); 
+	if ($exists==false) { $logo = 'no';  } 
+	$image = '';		
+				
+	// provided logo url			
+	$bgImage = '';
+	if(!empty($image)){
+		$bgImage = 'style="background-image: url(' . $image . ');"';
+	} else {
+		if($logo == '128x128.jpg' || $logo == '128x128.png' || $logo == '256x256.jpg' || $logo == '256x256.png'){
+			$bgImage = 'style="background-image:  url(http://ps.w.org/' . $pb_plugin_item[plugin_slug] . '/assets/icon-' . $logo . ');"';
+		} else if($logo == 'svg'){
+			$bgImage = 'style="background-image:  url(http://ps.w.org/' . $pb_plugin_item[plugin_slug] . '/assets/icon.svg)"';
+		} else if($logo == 'no'){
+			$bgImage = 'style="background-image:  url(' . plugins_url('/assets/img/wp-pic-sprite.png', dirname(__FILE__) ) . ');"';
+		} else {
+			$bgImage = 'style="background-image:  none, url(http://ps.w.org/' . $pb_plugin_item[plugin_slug] . '/assets/icon.svg), url(' . plugins_url('/assets/img/wp-pic-sprite.png', dirname(__FILE__) ) . ');"';
+		}
+	
+	}	
+	
+	return $bgImage;	
+}	
 		
 		
 
@@ -386,37 +444,21 @@ function bp_loop_item($pb_data, $pb_number) {
 					
 			$pb_plugin_items = $pb_data[bundle_plugins]; 		
 			foreach ($pb_plugin_items as $pb_plugin_item) {
-						
-							
-			// logo args
-			
 				
-			$logo = '128x128.png';
-			$url = 'http://ps.w.org/' . $pb_plugin_item[plugin_slug] . '/assets/icon-' . $logo;
-			$exists = (@$fp = fopen($url, "r")) !== FALSE; if ($fp) fclose($fp); 
-			if ($exists==false) { $logo = 'no';  } 
-			$image = '';		
-						
-			// provided logo url			
-			$bgImage = '';
-			if(!empty($image)){
-				$bgImage = 'style="background-image: url(' . $image . ');"';
+			// check if images are enabled in settings and use function if true
+			global $bndlsPlugin;
+			$bndls_images = $bndlsPlugin->get_setting('bndls_images');
+			if ($bndls_images == "yes" ) {
+				$bgImage = bndls_get_images($pb_plugin_item);				
 			} else {
-				if($logo == '128x128.jpg' || $logo == '128x128.png' || $logo == '256x256.jpg' || $logo == '256x256.png'){
-					$bgImage = 'style="background-image:  url(http://ps.w.org/' . $pb_plugin_item[plugin_slug] . '/assets/icon-' . $logo . ');"';
-				} else if($logo == 'svg'){
-					$bgImage = 'style="background-image:  url(http://ps.w.org/' . $pb_plugin_item[plugin_slug] . '/assets/icon.svg)"';
-				} else if($logo == 'no'){
-					$bgImage = 'style="background-image:  url(' . plugins_url('/assets/img/wp-pic-sprite.png', dirname(__FILE__) ) . ');"';
-				} else {
-					$bgImage = 'style="background-image:  none, url(http://ps.w.org/' . $pb_plugin_item[plugin_slug] . '/assets/icon.svg), url(' . plugins_url('/assets/img/wp-pic-sprite.png', dirname(__FILE__) ) . ');"';
-				}
+				$bgImage = 'style="background-image:  url(' . plugins_url('/assets/img/wp-pic-sprite.png', dirname(__FILE__) ) . ');"';
+
 			}
 
-			
-
-//var_dump($pb_plugin_item );			
-$bp_api_name = bp_api_query($pb_plugin_item[plugin_slug]);	
+			// output the plugin list item
+										
+			//var_dump($pb_plugin_item );			
+			$bp_api_name = bp_api_query($pb_plugin_item[plugin_slug]);	
 
 			echo '<div class="bundle-plugin-item"><a href="'.$bp_api_name->homepage .'" target="blank"><div '. $bgImage . ' class="bundle-icon"></div><div class="bundle-item-right"><div class="bundle-name">' . $bp_api_name->name .'</div><div class="bundle-rating">Rating: ' . $bp_api_name->rating  . '</div></div></a></div>';
 				
@@ -441,6 +483,12 @@ $bp_api_name = bp_api_query($pb_plugin_item[plugin_slug]);
 
 bp_loop_logic();
 
+		
+
+
+
+
+			
 		
 ?>
 

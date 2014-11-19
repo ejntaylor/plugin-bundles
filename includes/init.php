@@ -38,6 +38,7 @@ function admin_tabs($page, $tabs, $current=NULL){
     $content .= '</h2>';
         
     echo $content;
+    if (!$current) $current = key($tabs);
 	require_once($current.'.php');
 	return;
 
@@ -60,10 +61,36 @@ function bndls_page_output(){
 
 
 
+/*
+  * Simple Settings
+  * https://github.com/clifgriffin/wordpress-simple-settings/
+*/
 
 
 
 
+// Include the framework only if another plugin has not already done so
+if ( ! class_exists('WordPress_SimpleSettings') )
+	require('classes/wordpress-simple-settings.php'); 
 
+class bndlsPlugin extends WordPress_SimpleSettings {
+	var $prefix = 'bndls'; // this is super recommended
+
+	function __construct() {
+		parent::__construct(); // this is required
+
+
+		register_activation_hook(__FILE__, array($this, 'activate') );
+	}
+
+	function activate() {
+		$this->add_setting('bndls_feed', 'default');
+		$this->add_setting('bndls_feed_custom_url', 'http://');
+		$this->add_setting('bndls_images', 'no');
+		
+	}
+}
+
+$bndlsPlugin = new bndlsPlugin();
 
 ?>
