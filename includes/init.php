@@ -23,6 +23,9 @@ function admin_tabs($page, $tabs, $current=NULL){
         if(isset($_GET['tab'])){
             $current = $_GET['tab'];
         }
+        else {
+	        $current = 'bundles_overview';
+        }
     }
     $content = '';
     $content .= '<h2 class="nav-tab-wrapper">';
