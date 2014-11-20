@@ -398,7 +398,8 @@ function bp_loop_logic() {
 		}
 
 	}
-
+	
+	echo '<hr><p><a href="mailto:elliot@raison.co"><strong>Contact Us with your favourite Plugin Bundles and we will add them to the feed. elliot@raison.co</strong></a></p>';
 }
 
 
@@ -540,15 +541,8 @@ function bp_loop_item($pb_data, $pb_number) {
 	$pb_plugin_items = $pb_data[bundle_plugins];
 	foreach ($pb_plugin_items as $pb_plugin_item) {
 
-		// check if images are enabled in settings and use function if true
-		global $bndlsPlugin;
-		$bndls_images = $bndlsPlugin->get_setting('bndls_images');
-		if ($bndls_images == "yes" ) {
 			$bgImage = bndls_get_images($pb_plugin_item);
-		} else {
-			$bgImage = 'style="background-image:  url(' . plugins_url('/assets/img/wp-pic-sprite.png', dirname(__FILE__) ) . ');"';
 
-		}
 
 		// output the plugin list item
 

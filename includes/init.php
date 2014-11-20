@@ -53,7 +53,7 @@ function admin_tabs($page, $tabs, $current=NULL){
 function bndls_page_output(){
 
 	$bndls_plugin_tabs = array(
-	    'bundles_overview' => 'Bundles',
+	    'bundles_overview' => 'Bundles (beta)',
 	    'settings' => 'Settings',
 	);
 

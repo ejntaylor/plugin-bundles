@@ -46,15 +46,7 @@ $default_plugins = $bndlsPlugin->get_setting('req_plugins_arr','multiarray');
 			
 
 
-			<tr>
-				<th scope="row" valign="top">Enable Plugin Images (slow)</th>
-				<td>
-					<label>
-						<input type="hidden" name="<?php echo $bndlsPlugin->get_field_name('bndls_images'); ?>" value="no" />
-						<input type="checkbox" name="<?php echo $bndlsPlugin->get_field_name('bndls_images'); ?>" value="yes" <?php if ( $bndlsPlugin->get_setting('bndls_images') == "yes") echo 'checked="checked"'; ?> />
-					</label>
-				</td>
-			</tr>
+			
 
 		</tbody>
     	</table>
