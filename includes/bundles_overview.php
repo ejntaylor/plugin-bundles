@@ -46,7 +46,7 @@ function bp_api_query($slug) {
 
 
 /**
- * mm_get_plugins function.
+ * Activation Function
  *
  * downloads and activates a plugin.
  *
@@ -78,12 +78,12 @@ function mm_get_plugins($plugins) {
 		$pb_plugin_check = ABSPATH.'wp-content/plugins/'. $plugin['plugin_slug'];
 		if (file_exists($pb_plugin_check)) {
 
-			echo 'Already Installed. Just Activated: ' . print_r( $bp_api_query->name, true );
+			echo 'Already Installed. Just Activated: <strong>' . print_r( $bp_api_query->name, true ) .'</strong>';
 
 		} else {
 
 			$pb_plugin_download_link =  print_r( $bp_api_query->download_link, true );
-			echo 'Installed and Activated: ' . print_r( $bp_api_query->name, true );
+			echo 'Installed and Activated: <strong>' . print_r( $bp_api_query->name, true ) .'</strong>';
 			$pb_plugin_download_link = preg_replace("/^https:/i", "http:", $pb_plugin_download_link);
 			mm_plugin_download($pb_plugin_download_link, $args['plugin_path'].$plugin['plugin_slug'].'.zip');
 			mm_plugin_unpack($args, $args['plugin_path'].$plugin['plugin_slug'].'.zip');
@@ -160,15 +160,21 @@ function mm_plugin_unpack($args, $target)
 		unlink($target);
 	}
 }
+
+
+
+/**
+ * Unzip and Activate Plugin ZIP.
+ * 
+ * @access public
+ * @param mixed $installer
+ * @return void
+ */
 function mm_plugin_activate($installer)
 {
 	$current = get_option('active_plugins');
-	$pb_plugin_info = get_plugins('/' . $installer);
-	reset($pb_plugin_info);
-	$pb_plugin_file = key($pb_plugin_info);
-
-	$pb_full = $installer . '/'. $pb_plugin_file;
-	$plugin = trim($pb_full);
+	$pb_full = pb_get_plugin_filename($installer);
+		$plugin = trim($pb_full);
 
 
 	if(!in_array($plugin, $current))
@@ -185,6 +191,22 @@ function mm_plugin_activate($installer)
 		return false;
 }
 
+
+
+/**
+ * Gets the slug/filename from the plugin slug.
+ * 
+ * @access public
+ * @param mixed $installer
+ * @return string plugin file folder and name
+ */
+ 
+function pb_get_plugin_filename($slug) {
+	$pb_plugin_info = get_plugins('/' . $slug);
+	reset($pb_plugin_info);
+	$pb_plugin_file = key($pb_plugin_info);
+	return $slug . '/' . $pb_plugin_file;
+}
 
 
 
@@ -385,6 +407,54 @@ function bndls_get_images($pb_plugin_item) {
 
 
 /**
+ * Deactivates plugin function.
+ * 
+ * @access public
+ * @param mixed $bundle_plugins
+ * @return string WP Notice outlining which plugins deactivated
+ */
+ 
+function bp_deactiv_plug($bundle_plugins) {
+	//$bundle_plugins = array_values($bundle_plugins);
+	//$bundle_plugins = call_user_func_array('array_merge', $bundle_plugins);
+	
+	foreach($bundle_plugins as $bundle_plugin)
+		{
+			$bundle_plugins_array[] = pb_get_plugin_filename($bundle_plugin[plugin_slug]);
+		}
+		
+	
+	
+	$exclude_file_1 = "plugin-bundles/plugin-bundles.php";	
+	$exclude = array($exclude_file_1);
+	
+	$filtered = array_diff($bundle_plugins_array, $exclude);
+	
+	deactivate_plugins( $filtered );
+	
+	
+	    echo '<div class="updated">
+		      <p>Plugins Deactivated</p>';
+	
+					$n = 0;
+				    foreach($filtered as $key => $value) {
+				        //$string = explode('/',$value); // Folder name will be displayed
+				        echo $value . ' | ';
+				        $n++;
+				    }
+					echo '<br /><br /><strong>Total Deactivated: '. $n . '</strong>';				    
+				    $n = 0;
+				    
+	  
+			echo '</div>';
+
+}
+
+
+
+
+
+/**
  * PB Loop Output function.
  *
  * Loops through the bundles and the plugins on the backend
@@ -415,9 +485,9 @@ function bp_loop_item($pb_data, $pb_number) {
 					<form>
 						<input type="hidden" name="bundle_name" value="<?php echo $pb_data[bundle_info][bundle_name]; ?>">
 						<input type="hidden" name="bundle_number" value="<?php echo $pb_number; ?>">
-						<input type="hidden" name="action" value="activate">
 						<input type="hidden" name="page" value="bundles">
-						<input type="submit" value="Download and install" />
+						<input type="submit" name="action" value="Download and install" />
+						<input type="submit" name="action" value="Deactivate" />
 
 					</form>
 				</div>
@@ -444,7 +514,7 @@ function bp_loop_item($pb_data, $pb_number) {
 		// output the plugin list item
 
 		//var_dump($pb_plugin_item );
-		$bp_api_name = bp_api_query($pb_plugin_item[plugin_slug]);
+		//$bp_api_name = bp_api_query($pb_plugin_item[plugin_slug]);
 
 		echo '<div class="bundle-plugin-item"><a href="'.$bp_api_name->homepage .'" target="blank"><div '. $bgImage . ' class="bundle-icon"></div><div class="bundle-item-right"><div class="bundle-name">' . $bp_api_name->name .'</div><div class="bundle-rating">Rating: ' . $bp_api_name->rating  . '</div></div></a></div>';
 
@@ -507,6 +577,18 @@ function bp_activate() {
  
 function bp_deactivate() {
 	echo '<h2>Deactivate</h2>';
+	
+	$pbjson = pb_plugins_json();
+	$pb_bundle_number = isset($_GET['bundle_number']) ? $_GET['bundle_number'] : '';
+	if ($pb_bundle_number == '') {
+		echo 'no bundle found';
+		return;
+	}
+	$pb_plugins = $pbjson[$pb_bundle_number][bundle_plugins];
+
+	bp_deactiv_plug($pb_plugins);
+	
+	
 }
 
 
@@ -518,11 +600,11 @@ function bp_deactivate() {
 $bp_action = isset($_GET['action']) ? $_GET['action'] : '';
 
 
-if($bp_action == 'deactivate'){
+if($bp_action == 'Deactivate'){
 	bp_deactivate();
 }
 
-elseif($bp_action == 'activate'){
+elseif($bp_action == 'Download and install'){
 	bp_activate();
 }
 
