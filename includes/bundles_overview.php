@@ -111,7 +111,7 @@ function bp_wpapi($action, $args = null) {
  */
 
 
-function mm_get_plugins($plugins) {
+function bb_get_plugins($plugins) {
 
 	$args = array(
 		'plugin_path' => ABSPATH.'wp-content/plugins/',
@@ -140,13 +140,13 @@ function mm_get_plugins($plugins) {
 			$pb_plugin_download_link =  print_r( $bp_api_query->download_link, true );
 			echo 'Installed and Activated: <strong>' . print_r( $bp_api_query->name, true ) .'</strong>';
 			$pb_plugin_download_link = preg_replace("/^https:/i", "http:", $pb_plugin_download_link);
-			mm_plugin_download($pb_plugin_download_link, $args['plugin_path'].$plugin['plugin_slug'].'.zip');
-			mm_plugin_unpack($args, $args['plugin_path'].$plugin['plugin_slug'].'.zip');
+			bb_plugin_download($pb_plugin_download_link, $args['plugin_path'].$plugin['plugin_slug'].'.zip');
+			bb_plugin_unpack($args, $args['plugin_path'].$plugin['plugin_slug'].'.zip');
 
 		}
 
 
-		mm_plugin_activate($plugin['plugin_slug']);
+		bb_plugin_activate($plugin['plugin_slug']);
 	}
 
 	echo '</div>';
@@ -156,7 +156,7 @@ function mm_get_plugins($plugins) {
 
 
 /**
- * mm_plugin_download function.
+ * bb_plugin_download function.
  *
  * downloads the plugin from the WP API
  *
@@ -166,7 +166,7 @@ function mm_get_plugins($plugins) {
  * @return void
  */
 
-function mm_plugin_download($url, $path)
+function bb_plugin_download($url, $path)
 {
 	$ch = curl_init($url);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -179,7 +179,7 @@ function mm_plugin_download($url, $path)
 		return false;
 }
 
-function mm_plugin_unpack($args, $target)
+function bb_plugin_unpack($args, $target)
 {
 	if($zip = zip_open($target))
 	{
@@ -225,7 +225,7 @@ function mm_plugin_unpack($args, $target)
  * @param mixed $installer
  * @return void
  */
-function mm_plugin_activate($installer)
+function bb_plugin_activate($installer)
 {
 	$current = get_option('active_plugins');
 	$pb_full = pb_get_plugin_filename($installer);
@@ -356,7 +356,7 @@ function bp_loop_logic() {
 			bp_loop_item($pb_plugin_item_details, $pb_plugin_item_number);
 
 			//$pb_bundle_go = $pbjson[bundle_plugins]
-			//mm_get_plugins($pb_bundle_go);
+			//bb_get_plugins($pb_bundle_go);
 		}
 
 	}
@@ -563,7 +563,7 @@ function bp_activate() {
 	//  var_dump($pb_plugins);
 
 
-	mm_get_plugins($pb_plugins);
+	bb_get_plugins($pb_plugins);
 
 
 }
