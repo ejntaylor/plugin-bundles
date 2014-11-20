@@ -3,10 +3,10 @@
 
 
 /**
- * Query the WP API for Plugin Information
+ * API Transient
  *
- * Returns the API object from the plugin slug
- * ref: http://stackoverflow.com/questions/10353859/is-it-possible-to-programmatically-install-plugins-from-wordpress-theme
+ * Checks to see if WP API query is saved as transient.  If none, creates transient from api data
+ *
  *
  * @access public
  * @param mixed $slug
@@ -15,8 +15,47 @@
 
 function bp_api_query($slug) {
 
+
+	    $feeddata = get_transient( 'bp_feeddata' . $slug );
+	    if ( $feeddata === false )
+	    {
+	        $feeddata = bp_get_external_feed_data($slug);
+	        set_transient( 'bp_feeddata' . $slug, $feeddata, 72 * HOUR_IN_SECONDS  );
+	    }
+	    
+//	   var_dump($feeddata);
+	
+	    return $feeddata;
+	
+}
+
+
+/**
+ * Query the WP API for Plugin Information
+ *
+ * Returns the API object from the plugin slug
+ * ref: http://code.tutsplus.com/tutorials/communicating-with-the-wordpressorg-plugin-api--wp-33069
+ *
+ * @access public
+ * @param mixed $slug
+ * @return object
+ */
+ 
+function bp_get_external_feed_data($slug) {
+	
+$exceptions = array (
+'version' => true,
+'sections' => false,
+
+);
+
+//var_dump($exceptions);
+
 	/** Prepare our query */
-	$call_api = bp_wpapi( 'plugin_information', array( 'slug' => $slug ) );
+	$call_api = bp_wpapi( 'plugin_information', array( 'slug' => $slug, 'fields' => $exceptions) );
+		
+		//var_dump($call_api);
+
 
 	/** Check for Errors & Display the results */
 	if ( is_wp_error( $call_api ) ) {
@@ -38,10 +77,8 @@ function bp_api_query($slug) {
 
 
 	return $call_api;
-
-
-}
-
+	
+			}
 
 
 /**
@@ -104,7 +141,8 @@ function bp_wpapi($action, $args = null) {
  * Activation Function
  *
  * downloads and activates a plugin.
- *
+ * ref: http://stackoverflow.com/questions/10353859/is-it-possible-to-programmatically-install-plugins-from-wordpress-theme
+ * 
  * @access public
  * @param mixed $plugins
  * @return string the confirmation of whether plugin is activated
