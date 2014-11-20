@@ -467,23 +467,14 @@ function bp_loop_item($pb_data, $pb_number) {
 
 
 
-
-// Page Logic
-
-$bp_action = isset($_GET['action']) ? $_GET['action'] : '';
-
-
-if($bp_action == 'deactivate'){
-	bp_deactivate();
-}
-
-elseif($bp_action == 'activate'){
-	bp_activate();
-}
-
-
-
-
+/**
+ * Activate and Install the Bundle
+ * 
+ * @access public
+ * @return void
+ */
+ 
+ 
 function bp_activate() {
 
 	echo '<h3>Activating and Installing: ' .  $_GET['bundle_name'] . '</h3>';
@@ -507,12 +498,33 @@ function bp_activate() {
 }
 
 
+/**
+ * Deactivates the Bundle.
+ * 
+ * @access public
+ * @return void
+ */
+ 
 function bp_deactivate() {
 	echo '<h2>Deactivate</h2>';
 }
 
 
 
+
+
+// Page Logic
+
+$bp_action = isset($_GET['action']) ? $_GET['action'] : '';
+
+
+if($bp_action == 'deactivate'){
+	bp_deactivate();
+}
+
+elseif($bp_action == 'activate'){
+	bp_activate();
+}
 
 
 
