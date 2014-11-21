@@ -217,6 +217,17 @@ function pb_plugin_download($url, $path)
 		return false;
 }
 
+
+
+/**
+ * Unpack downloaded plugin ZIP
+ * 
+ * @access public
+ * @param mixed $args
+ * @param mixed $target
+ * @return void
+ */
+ 
 function pb_plugin_unpack($args, $target)
 {
 	if($zip = zip_open($target))
@@ -257,12 +268,13 @@ function pb_plugin_unpack($args, $target)
 
 
 /**
- * Unzip and Activate Plugin ZIP.
+ * Activate Plugin
  * 
  * @access public
  * @param mixed $installer
  * @return void
  */
+ 
 function pb_plugin_activate($installer)
 {
 	$current = get_option('active_plugins');
@@ -277,7 +289,7 @@ function pb_plugin_activate($installer)
 		do_action('activate_plugin', trim($plugin));
 		update_option('active_plugins', $current);
 		do_action('activate_'.trim($plugin));
-		do_action('activated_plugin', trim($plugin));
+		do_action('activated_plugin', trim($plugin));		
 		return true;
 	}
 	else
@@ -507,13 +519,16 @@ function pb_deactiv_plug($bundle_plugins) {
 
 function pb_loop_item($pb_data, $pb_number) {
 
-
+	global $bndlsPlugin;
+	if ($bndlsPlugin->get_setting('bp_bundle_'.$pb_data[bundle_info][bundle_slug]) == 'active') { 
+		$bp_active_setting = true;
+		}
 ?>
 
 
 <div id="bundle-section">
 	<ul id="bundle-list">
-		<li class="bundle-item">
+		<li class="bundle-item" <?php if ($bp_active_setting) {echo 'style="border-left:4px solid #7ad03a;"';}?>>
 			<div class="bundle-item-l">
 				<div class="bundle-title-top">
 					<h3><?php echo $pb_data[bundle_info][bundle_name]; ?></h3>
@@ -526,8 +541,19 @@ function pb_loop_item($pb_data, $pb_number) {
 						<input type="hidden" name="bundle_name" value="<?php echo $pb_data[bundle_info][bundle_name]; ?>">
 						<input type="hidden" name="bundle_number" value="<?php echo $pb_number; ?>">
 						<input type="hidden" name="page" value="bundles">
-						<input type="submit" name="action" value="Download and install" />
-						<input type="submit" name="action" value="Deactivate" />
+						
+					<?php 
+
+						if ($bp_active_setting) {
+							echo '<input type="submit" name="action" value="Deactivate" />'; }
+						else {
+							echo '<input type="submit" name="action" value="Download and install" />';
+						}
+						
+						?>
+
+						
+						
 
 					</form>
 				</div>
@@ -582,8 +608,7 @@ function pb_activate() {
 
 	echo '<h3>Activating and Installing: ' .  $_GET['bundle_name'] . '</h3>';
 
-
-
+	// get json bundles
 	$pbjson = pb_plugins_json();
 	$pb_bundle_number = isset($_GET['bundle_number']) ? $_GET['bundle_number'] : '';
 	if ($pb_bundle_number == '') {
@@ -592,12 +617,15 @@ function pb_activate() {
 	}
 	$pb_plugins = $pbjson[$pb_bundle_number][bundle_plugins];
 
-	//  var_dump($pb_plugins);
-
-
+	// activate bundles plugins
 	pb_get_plugins($pb_plugins);
+	
+	// adds a setting to mark bundle as active		
+	global $bndlsPlugin;
 
-
+	// sets active setting
+	$bndlsPlugin->update_setting('bp_bundle_'.$pbjson[$pb_bundle_number][bundle_info][bundle_slug],'active');
+	
 }
 
 
