@@ -620,10 +620,8 @@ function pb_activate() {
 	// activate bundles plugins
 	pb_get_plugins($pb_plugins);
 	
-	// adds a setting to mark bundle as active		
-	global $bndlsPlugin;
-
 	// sets active setting
+	global $bndlsPlugin;
 	$bndlsPlugin->update_setting('bp_bundle_'.$pbjson[$pb_bundle_number][bundle_info][bundle_slug],'active');
 	
 }
@@ -648,6 +646,11 @@ function pb_deactivate() {
 	$pb_plugins = $pbjson[$pb_bundle_number][bundle_plugins];
 
 	pb_deactiv_plug($pb_plugins);
+	
+	// sets active setting
+	global $bndlsPlugin;
+	$bndlsPlugin->update_setting('bp_bundle_'.$pbjson[$pb_bundle_number][bundle_info][bundle_slug],'deactive');
+
 	
 	
 }
