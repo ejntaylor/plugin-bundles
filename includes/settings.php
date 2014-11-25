@@ -36,7 +36,7 @@ $default_plugins = $bndlsPlugin->get_setting('req_plugins_arr','multiarray');
 						
 						<br />
 						
-						<input type="text" name="<?php echo $bndlsPlugin->get_field_name('bndls_feed_custom_url'); ?>" value="<?php echo $bndlsPlugin->get_setting('bndls_feed_custom_url'); ?>" />
+						<input style="width:400px;" type="text" name="<?php echo $bndlsPlugin->get_field_name('bndls_feed_custom_url'); ?>" value="<?php echo $bndlsPlugin->get_setting('bndls_feed_custom_url'); ?>" />
 	
 						
 					</label>

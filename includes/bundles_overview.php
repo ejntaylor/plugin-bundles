@@ -326,11 +326,17 @@ function pb_get_plugin_filename($slug) {
 
 
 function pb_plugins_json() {
-	$timeStart = microtime(true);
+	//$timeStart = microtime(true);
 
-
-	$pb_root = 'http://raison.co/bundles_json/';
-	$timeAfterGet = microtime(true);
+	// get the feed url	
+	global $bndlsPlugin;
+	if ( $bndlsPlugin->get_setting('bndls_feed') == "default") {
+		 $pb_root = 'http://raison.co/bundles_json/';
+	} else {
+		$pb_root = $bndlsPlugin->get_setting('bndls_feed_custom_url');
+	}
+	
+	//$timeAfterGet = microtime(true);
 
 	$pb_file = isset($_GET['pb_bundle_file']) ? $_GET['pb_bundle_file'] : 'bundles';
 	$pb_path = $pb_root.$pb_file.'.json';
@@ -362,7 +368,7 @@ function pb_plugins_json() {
 	//var_dump($pb_result_decode);
 
 
-	$timeEnd = microtime(true);
+	//$timeEnd = microtime(true);
 
 	/*
 	 echo "Time taken to get JSON: " . number_format($timeAfterGet - $timeStart, 4) . " seconds<br />";
