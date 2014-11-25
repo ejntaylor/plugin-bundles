@@ -88,7 +88,7 @@ class bndlsPlugin extends WordPress_SimpleSettings {
 
 	function activate() {
 		$this->add_setting('bndls_feed', 'default');
-		$this->add_setting('bndls_feed_custom_url', 'http://');
+		$this->add_setting('bndls_feed_custom_url', 'http://raison.co/bundles_json/');
 		$this->add_setting('bndls_images', 'no');
 		
 	}
