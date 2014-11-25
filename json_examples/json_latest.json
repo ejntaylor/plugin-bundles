@@ -1,24 +1,36 @@
 {
         "bundle_plugin_1": {
             "bundle_info": {
-                "bundle_name": "Starter Bundle",
-                "bundle_author": "Test",
+                "bundle_name": "Essentials Bundle",
+                "bundle_slug": "essentials_bundle",
+                "bundle_author": "Raison",
                 "bundle_author_link": "http://raison.co",                
-                "bundle_description": "This is a test bundle"
+                "bundle_description": "We use these plugins on all our sites. A range of items but all essential."
             },
             
         "bundle_plugins": {
             
 	            "plugin_1": {
-	                "plugin_slug": "jetpack"
+	                "plugin_slug": "cookies-for-comments"
 	            },
 	            "plugin_2": {
-	                "plugin_slug": "debug-bar-actions-and-filters-addon"
+	                "plugin_slug": "easy-theme-and-plugin-upgrades"
 	            },
 	            "plugin_3": {
-	                "plugin_slug": "tumblr-importer"
-	            }
-            
+	                "plugin_slug": "image-widget"
+	            },
+	            "plugin_4": {
+	                "plugin_slug": "simple-image-sizes"
+	            },
+	            "plugin_5": {
+	                "plugin_slug": "wordpress-importer"
+	            },
+	            "plugin_6": {
+	                "plugin_slug": "wordpress-seo"
+	            } ,
+	            "plugin_7": {
+	                "plugin_slug": "wp-security-audit-log"
+	            }  	                      
             }
             
             
@@ -26,23 +38,71 @@
         "bundle_plugin_2": {
             "bundle_info": {
                 "bundle_name": "Debug Bundle",
+                "bundle_slug": "debug_bundle",                
                 "bundle_author": "Raison",
                 "bundle_author_link": "http://raison.co",
-                "bundle_description": "This is the debug bundle"
+                "bundle_description": "Fantastic for debugging and development of sites."
             },
             
 			"bundle_plugins": {
-
-            "plugin_1": {
-                "plugin_slug": "debug-bar"
-            },
-            "plugin_2": {
-                "plugin_slug": "debug-bar-constants"
-            },
-            "plugin_3": {
-                "plugin_slug": "debug-bar-post-types"
+	
+	            "plugin_1": {
+	                "plugin_slug": "debug-bar"
+	            },
+	            "plugin_2": {
+	                "plugin_slug": "debug-bar-constants"
+	            },
+	            "plugin_3": {
+	                "plugin_slug": "debug-bar-post-types"
+	            },
+	            "plugin_4": {
+	                "plugin_slug": "debug-bar-post-meta"
+	            },
+	            "plugin_5": {
+	                "plugin_slug": "debug-bar-cron"
+	            },
+	            "plugin_6": {
+	                "plugin_slug": "theme-check"
+	            },
+	            "plugin_7": {
+	                "plugin_slug": "plugin-check"
+	            },
+	            "plugin_8": {
+	                "plugin_slug": "query-monitor"
+	            }
+                                   
             }
+        },
+
+        "bundle_plugin_3": {
+            "bundle_info": {
+                "bundle_name": "WooCommerce Freebies",
+                "bundle_slug": "woocommerce_freebies",
+                "bundle_author": "Raison",
+                "bundle_author_link": "http://raison.co",
+                "bundle_description": "Some goodies for WooCommerce."
+            },
             
+			"bundle_plugins": {
+	
+	            "plugin_1": {
+	                "plugin_slug": "woocommerce-debug-bar"
+	            },
+	            "plugin_2": {
+	                "plugin_slug": "woocommerce-admin-bar-addition"
+	            },
+	            "plugin_3": {
+	                "plugin_slug": "woocommerce-cart-tab"
+	            },
+	            "plugin_4": {
+	                "plugin_slug": "woocommerce-mailchimp-plugin"
+	            },
+	            "plugin_5": {
+	                "plugin_slug": "receiptful-for-woocommerce"
+	            }
+                                   
             }
         }
+        
     }
+
